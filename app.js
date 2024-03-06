@@ -6,16 +6,21 @@ const app = express();
 
 // Routes
 const urls = require('./routes/urls');
+const { tinyUrl } = require('./controllers/urls');
 
 connectDB();
 
-const PORT = 9800 || process.env.PORT;
+const PORT = 8080 || process.env.PORT;
 
 // Body Parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Custom URL shortener
 app.use('/api/v1', urls);
+
+// Using Tinyurl API
+app.post('/tinyurl', tinyUrl);
 
 app.use(errorHandler);
 
