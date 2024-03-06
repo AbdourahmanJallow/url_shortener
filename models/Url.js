@@ -6,9 +6,10 @@ const UrlSchema = mongoose.Schema({
         required: [true, 'Provide a unique url id'],
         unique: true
     },
-    orginalUrl: {
+    originalUrl: {
         type: String,
-        required: [true, 'Provide original url']
+        required: [true, 'Provide original url'],
+        match: [/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/, 'Provide a valid URL']
     },
     shortUrl: {
         type: String,
@@ -25,4 +26,4 @@ const UrlSchema = mongoose.Schema({
     }
 });
 
-export default mongoose.models('Url', UrlSchema);
+module.exports = mongoose.model('Url', UrlSchema);

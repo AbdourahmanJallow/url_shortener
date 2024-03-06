@@ -4,15 +4,18 @@ const connectDB = require('./config/connectDB');
 const errorHandler = require('./middleware/error');
 const app = express();
 
+// Routes
+const urls = require('./routes/urls');
+
 connectDB();
 
 const PORT = 9800 || process.env.PORT;
 
-app.post('/', (req, res) => {
-    console.log(`${req.protocol} ${req.method} ${req.url}`);
+// Body Parser
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-    res.json({ success: true });
-});
+app.use('/api/v1', urls);
 
 app.use(errorHandler);
 
